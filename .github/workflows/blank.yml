@@ -20,7 +20,8 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-latest
+        - ubuntu-20.04	
+        # - ubuntu-latest
         # - windows-latest
         # - macos-latest
         python-version:
