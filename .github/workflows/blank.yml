@@ -20,12 +20,11 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-20.04	
-        # - ubuntu-latest
+        - ubuntu-latest	
         # - windows-latest
         # - macos-latest
         python-version:
-        - '3.6'
+        - '3.7'
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
     
@@ -52,6 +51,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r RCM/rcm/client/requirements.txt
+          
+          # https://github.com/paramiko/paramiko/pull/1985
+          pip install six
 
       - name: Test python
         run: |
