@@ -55,7 +55,7 @@ jobs:
       - name: Test python
         run: |
           python --version
-          python -c \"exec(\\\"try: import paramiko\\\nexcept:\\\\n print('missing paramiko')\\\")\""
+          python -c "exec('try: import paramiko \nexcept: print(\'missing paramiko\')')"
 
       - name: Build
         run: |
