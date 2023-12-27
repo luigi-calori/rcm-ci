@@ -26,7 +26,7 @@ jobs:
       - name: Checkout RCM
         uses: actions/checkout@v3
         with:
-          repository: https://github.com/RemoteConnectionManager/RCM
+          repository: RemoteConnectionManager/RCM
 
       # Runs a single command using the runners shell
       - name: Set up Python
