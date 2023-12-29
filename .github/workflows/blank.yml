@@ -43,6 +43,7 @@ jobs:
       - name: Check repo
         run: |
          ls
+         git --git-dir=RCM/.git/ branch
 
       # Runs a single command using the runners shell
       - name: Set up Python
@@ -100,6 +101,6 @@ jobs:
       - name: Upload exe
         uses: actions/upload-artifact@v3
         with:
-          name: RCM_client_${{ matrix.os }}
+          name: RCM_client_${{ matrix.os }}_turbovnc_${{ matrix.turbovnc-version }}
           path: |
             dist
