@@ -13,6 +13,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  TURBOVNC_DOWNLOAD: https://github.com/TurboVNC/turbovnc/releases/download
+  TURBOVNC_EXTERNAL: RCM/rcm/client/external/turbovnc
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -20,13 +24,13 @@ jobs:
     strategy:
       matrix:
         os:
-        # - ubuntu-latest	
-        # - windows-latest
+        - ubuntu-latest	
+        - windows-latest
         - macos-latest
         python-version:
         - '3.7'
         turbovnc-version:
-        # - '3.1'
+        - '3.1'
         - '2.2.7'
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
@@ -64,9 +68,8 @@ jobs:
           pip install six
           
           # https://github.com/paramiko/paramiko/issues/1007
-          pip install cryptography==2.9
-
           # https://stackoverflow.com/questions/32518458/importerror-no-module-named-cryptography-hazmat-bindings-openssl
+          pip install cryptography==2.9
 
           pip install -r RCM/rcm/client/requirements.txt
 
@@ -79,31 +82,45 @@ jobs:
       - name: Install externals MACOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
-         wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}.dmg -O turbovnc.dmg
-         hdiutil attach turbovnc.dmg
-         diskutil list
-         ls /Volumes/TurboVNC-${{matrix.turbovnc-version}}
-         find /Volumes/TurboVNC-${{matrix.turbovnc-version}}
-         hdiutil detach TurboVNC-${{matrix.turbovnc-version}}
-         hdiutil blablabla
+         #!!! TODO: generalize download url (newer version has arch) !!!
+         #!!! TODO: install dmg !!!
+
+         # Download dmg
+         # wget $TURBOVNC_DOWNLOAD/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}.dmg -O turbovnc.dmg
 
       - name: Install externals WINDOWS
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-         choco install innoextract wget
-         wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
+         #!!! TODO: mv only necessary file !!!
+
+         # Install wget and innoextract
+         choco install wget innoextract
+         
+         # Download exe
+         wget $TURBOVNC_DOWNLOAD/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
+         
+         # Extract file from exe
          innoextract turbovnc.exe
-         mkdir RCM\rcm\client\external\turbovnc
-         mv app RCM\rcm\client\external\turbovnc\bin
+         
+         # Create `external\turbovnc\bin` and copy all files there
+         mkdir $TURBOVNC_EXTERNAL
+         mv app $TURBOVNC_EXTERNAL/bin
 
       - name: Install externals LINUX
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-         wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/turbovnc_${{ matrix.turbovnc-version }}_amd64.deb -O turbovnc.deb
+         #!!! TODO: mv only necessary file !!!
+          
+         # Download deb
+         wget $TURBOVNC_DOWNLOAD/${{ matrix.turbovnc-version }}/turbovnc_${{ matrix.turbovnc-version }}_amd64.deb -O turbovnc.deb
+         
+         # Extract file from deb
          dpkg-deb -x turbovnc.deb tmp
-         mv tmp/opt/TurboVNC RCM/rcm/client/external/turbovnc
-         mv tmp/usr/share RCM/rcm/client/external/turbovnc
-         mv tmp/etc RCM/rcm/client/external/turbovnc
+
+         # Copy extracted file to `$TURBOVNC_EXTERNAL` 
+         mv tmp/opt/TurboVNC $TURBOVNC_EXTERNAL
+         mv tmp/usr/share $TURBOVNC_EXTERNAL
+         mv tmp/etc $TURBOVNC_EXTERNAL
 
       - name: Build pyinstaller
         run: |
