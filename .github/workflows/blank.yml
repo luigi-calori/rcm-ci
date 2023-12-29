@@ -82,7 +82,10 @@ jobs:
          wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}.dmg -O turbovnc.dmg
          hdiutil attach turbovnc.dmg
          diskutil list
-         hdiutil blabla
+         ls /Volumes/TurboVNC-${{matrix.turbovnc-version}}
+         find /Volumes/TurboVNC-${{matrix.turbovnc-version}}
+         hdiutil detach TurboVNC-${{matrix.turbovnc-version}}
+         hdiutil blablabla
 
       - name: Install externals WINDOWS
         if: ${{ matrix.os == 'windows-latest' }}
