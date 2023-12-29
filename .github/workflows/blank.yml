@@ -55,7 +55,7 @@ jobs:
           pip install six
           
           # https://github.com/paramiko/paramiko/issues/1007
-          pip install cryptography==1.5
+          # pip install cryptography==1.5
 
           pip install -r RCM/rcm/client/requirements.txt
 
@@ -71,8 +71,7 @@ jobs:
 
       - name: Build
         run: |
-         # https://stackoverflow.com/questions/62926929/pyinstaller-failed-to-execute-script-pyi-rth-pkgres
-         pyinstaller RCM/rcm/client/rcm_client_qt.spec --hidden-import pkg_resources
+         pyinstaller RCM/rcm/client/rcm_client_qt.spec
 
       - name: Upload exe
         uses: actions/upload-artifact@v3
