@@ -78,11 +78,14 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
          choco install innoextract wget
-         wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
+         # wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
+         wget https://github.com/TurboVNC/turbovnc/releases/download/2.1.2/TurboVNC64-2.1.2.exe -O turbovnc.exe
          innoextract turbovnc.exe
-         mv app RCM\rcm\client\external\turbovnc
-         mkdir RCM\rcm\client\external\turbovnc\bin
-         cp RCM\rcm\client\external\turbovnc\vncviewer.bat RCM\rcm\client\external\turbovnc\bin\vncviewer
+         mkdir RCM\rcm\client\external\turbovnc
+         mv app RCM\rcm\client\external\turbovnc\bin
+         # mv app RCM\rcm\client\external\turbovnc
+         # mkdir RCM\rcm\client\external\turbovnc\bin
+         # cp RCM\rcm\client\external\turbovnc\vncviewer.bat RCM\rcm\client\external\turbovnc\bin\vncviewer
 
       - name: Install externals LINUX
         if: ${{ matrix.os == 'ubuntu-latest' }}
