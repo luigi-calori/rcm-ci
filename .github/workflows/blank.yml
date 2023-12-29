@@ -77,7 +77,7 @@ jobs:
       - name: Install externals WINDOWS
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-         choco install innoextract
+         choco install innoextract wget
          wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
          innoextract turbovnc.exe
          mv app RCM\rcm\client\external\turbovnc
