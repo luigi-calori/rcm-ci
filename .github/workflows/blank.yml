@@ -82,8 +82,7 @@ jobs:
          innoextract turbovnc.exe
          mv app RCM\rcm\client\external\turbovnc
          mkdir RCM\rcm\client\external\turbovnc\bin
-         mv RCM\rcm\client\external\turbovnc\vnc* RCM\rcm\client\external\turbovnc\bin
-
+         cp RCM\rcm\client\external\turbovnc\vncviewer.bat RCM\rcm\client\external\turbovnc\bin\vncviewer
 
       - name: Install externals LINUX
         if: ${{ matrix.os == 'ubuntu-latest' }}
