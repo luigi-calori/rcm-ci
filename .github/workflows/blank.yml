@@ -55,7 +55,7 @@ jobs:
           pip install six
           
           # https://github.com/paramiko/paramiko/issues/1007
-          # pip install cryptography==1.5
+          pip install cryptography==2.0
 
           pip install -r RCM/rcm/client/requirements.txt
 
