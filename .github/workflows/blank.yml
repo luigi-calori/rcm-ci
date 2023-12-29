@@ -55,7 +55,9 @@ jobs:
           pip install six
           
           # https://github.com/paramiko/paramiko/issues/1007
-          pip install cryptography==2.0
+          pip install cryptography==2.9
+
+          # https://stackoverflow.com/questions/32518458/importerror-no-module-named-cryptography-hazmat-bindings-openssl
 
           pip install -r RCM/rcm/client/requirements.txt
 
@@ -63,7 +65,7 @@ jobs:
         run: |
           python --version
           python -c "import paramiko"
-          # python -c "exec('try: import paramiko \nexcept: print(\'missing paramiko\')')"
+          pip list
 
       - name: Build externals
         run: |
