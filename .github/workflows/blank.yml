@@ -20,11 +20,13 @@ jobs:
     strategy:
       matrix:
         os:
-        # - ubuntu-latest	
-        - windows-latest
+        - ubuntu-latest	
+        # - windows-latest
         # - macos-latest
         python-version:
         - '3.7'
+        turbovnc-version:
+        - '3.1'
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
     
@@ -67,13 +69,22 @@ jobs:
           python -c "import paramiko"
           pip list
 
-      - name: Build externals
+      - name: Build externals MACOS
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |
          touch RCM/rcm/client/external/turbovnc
 
-      - name: Build
+      - name: Build 
+        if: ${{ matrix.os == 'windows-latest' }}
         run: |
          pyinstaller RCM/rcm/client/rcm_client_qt.spec
+
+      - name: Build
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+         wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc_version }}/turbovnc_${{ matrix.turbovnc_version }}_amd64.deb -O turbovnc.deb
+         sudo dpkg -i turbovnc.deb
+         cp /opt/TurboVNC/bin/vncviewer RCM/rcm/client/external/turbovnc
 
       - name: Upload exe
         uses: actions/upload-artifact@v3
