@@ -35,23 +35,13 @@ jobs:
         - '2.2.7'
         exclude:
         - os: macos-latest
-          turbovnc-version: '2.2.7'    
-        - os: macos-latest
-        - os: ubuntu-latest	
-        - os: windows-latest
-          turbovnc-version: '2.2.7'    
+          turbovnc-version: '3.1'
+
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: TEST
-        if: ${{ matrix.os == 'windows-latest' }}
-        run: |
-         echo $env:TURBOVNC_EXTERNAL
-         echo $env:TURBOVNC_EXTERNAL/bin
-         mkdir $env:TURBOVNC_EXTERNAL/bin
-
       - name: Uname
         if: ${{ matrix.os != 'windows-latest' }}
         run: |
@@ -112,7 +102,7 @@ jobs:
          choco install wget innoextract
          
          # Download exe
-         wget $TURBOVNC_DOWNLOAD/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
+         wget $env:TURBOVNC_DOWNLOAD/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
          
          # Extract file from exe
          innoextract turbovnc.exe
