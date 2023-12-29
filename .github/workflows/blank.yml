@@ -83,8 +83,8 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
          wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/turbovnc_${{ matrix.turbovnc-version }}_amd64.deb -O turbovnc.deb
-         sudo dpkg -i turbovnc.deb
-         # cp /opt/TurboVNC/bin/vncviewer RCM/rcm/client/external/turbovnc
+         mkdir -p RCM/rcm/client/external/turbovnc
+         dpkg-deb -x turbovnc.deb RCM/rcm/client/external/turbovnc
 
       - name: Build pyinstaller
         run: |
