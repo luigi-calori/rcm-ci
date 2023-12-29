@@ -20,9 +20,9 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-latest	
+        # - ubuntu-latest	
         - windows-latest
-        - macos-latest
+        # - macos-latest
         python-version:
         - '3.7'
     # The type of runner that the job will run on
@@ -71,7 +71,8 @@ jobs:
 
       - name: Build
         run: |
-         pyinstaller RCM/rcm/client/rcm_client_qt.spec
+         # https://stackoverflow.com/questions/62926929/pyinstaller-failed-to-execute-script-pyi-rth-pkgres
+         pyinstaller RCM/rcm/client/rcm_client_qt.spec --hidden-import pkg_resources
 
       - name: Upload exe
         uses: actions/upload-artifact@v3
