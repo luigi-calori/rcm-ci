@@ -81,7 +81,9 @@ jobs:
          wget https://github.com/TurboVNC/turbovnc/releases/download/${{ matrix.turbovnc-version }}/TurboVNC-${{ matrix.turbovnc-version }}-x64.exe -O turbovnc.exe
          innoextract turbovnc.exe
          mv app RCM\rcm\client\external\turbovnc
-         
+         mkdir RCM\rcm\client\external\turbovnc\bin
+         mv RCM\rcm\client\external\turbovnc\vnc* RCM\rcm\client\external\turbovnc\bin
+
 
       - name: Install externals LINUX
         if: ${{ matrix.os == 'ubuntu-latest' }}
