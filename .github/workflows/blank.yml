@@ -15,7 +15,8 @@ on:
 
 env:
   TURBOVNC_DOWNLOAD: https://github.com/TurboVNC/turbovnc/releases/download
-  TURBOVNC_EXTERNAL: RCM/rcm/client/external/turbovnc
+  TURBOVNC_EXTERNAL: "RCM/rcm/client/external/turbovnc"
+  # TURBOVNC_EXTERNAL_WIN: "RCM\rcm\client\external\turbovnc"
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -44,6 +45,13 @@ jobs:
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: TEST
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+         echo $env:TURBOVNC_EXTERNAL
+         echo $env:TURBOVNC_EXTERNAL/bin
+         mkdir $env:TURBOVNC_EXTERNAL/bin
+
       - name: Uname
         if: ${{ matrix.os != 'windows-latest' }}
         run: |
