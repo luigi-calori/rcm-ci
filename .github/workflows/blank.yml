@@ -72,6 +72,6 @@ jobs:
       - name: Upload exe
         uses: actions/upload-artifact@v3
         with:
-          name: pyinstaller exe
+          name: RCM_client_${{ matrix.os }}
           path: |
             dist
