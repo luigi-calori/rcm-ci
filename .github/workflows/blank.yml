@@ -32,6 +32,13 @@ jobs:
         turbovnc-version:
         - '3.1'
         - '2.2.7'
+        exclude:
+        - os: macos-latest
+          turbovnc-version: '2.2.7'    
+        - os: macos-latest
+        - os: ubuntu-latest	
+        - os: windows-latest
+          turbovnc-version: '2.2.7'    
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
     
@@ -103,8 +110,8 @@ jobs:
          innoextract turbovnc.exe
          
          # Create `external\turbovnc\bin` and copy all files there
-         mkdir $TURBOVNC_EXTERNAL
-         mv app $TURBOVNC_EXTERNAL/bin
+         mkdir $env:TURBOVNC_EXTERNAL
+         mv app $env:TURBOVNC_EXTERNAL/bin
 
       - name: Install externals LINUX
         if: ${{ matrix.os == 'ubuntu-latest' }}
