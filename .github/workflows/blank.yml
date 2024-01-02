@@ -113,7 +113,7 @@ jobs:
          mv app $env:TURBOVNC_EXTERNAL/bin
 
       - name: Install externals LINUX
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ contains(matrix.os, 'ubuntu')  }}
         run: |
          #!!! TODO: mv only necessary file !!!
           
