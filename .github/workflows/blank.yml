@@ -54,6 +54,7 @@ jobs:
         with:
           repository: RemoteConnectionManager/RCM
           path: RCM
+          ref: 'dev_update_2FA'
 
       - name: Check repo
         run: |
