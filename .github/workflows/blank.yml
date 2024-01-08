@@ -72,11 +72,11 @@ jobs:
           python -m pip install --upgrade pip
           
           # https://github.com/paramiko/paramiko/pull/1985
-          pip install six
+          #inserted in requirements pip install six
           
           # https://github.com/paramiko/paramiko/issues/1007
           # https://stackoverflow.com/questions/32518458/importerror-no-module-named-cryptography-hazmat-bindings-openssl
-          pip install cryptography==2.9
+          #inserted in requirements pip install cryptography==2.9
 
           pip install -r RCM/rcm/client/requirements.txt
 
